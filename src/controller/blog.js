@@ -15,16 +15,31 @@ const getList = (author, keyword) => {
 };
 
 const getDetail = (id) => {
-    
+    const sql = `select * from blogs where id='${id}'`;
+    return exec(sql).then(rows => {
+        return rows[0];
+    })
 };
 
 const newBlog = (blogData = {}) => {
 
-    console.log('newBlog blogData...', blogData);
+    const title = blogData.title;
+    const content = blogData.content;
+    const author = blogData.author;
+    const createTime = Date.now();
 
-    return {
-        id: 3
-    }
+    const sql = `
+        insert into blogs (title, content, createtime, author)
+        values ('${title}', '${content}', ${createTime}, '${author}');
+    `
+ 
+    return exec(sql).then(insertData => {
+        // console.log('insertData is ' + insertData);
+        return {
+            id: insertData.insertId
+        }
+    })
+
 }
 
 const updateBlog = (id, blogData = {}) => {
