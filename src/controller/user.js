@@ -1,7 +1,10 @@
 const { exec, escape } = require('../db/mysql')
+const { getPassword } = require('../utils/cryp');
 
 const login = (username, password) => {
     username = escape(username);
+    
+    password = getPassword(password);
     password = escape(password);
 
     const sql = `
