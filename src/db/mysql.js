@@ -10,7 +10,7 @@ const {MYSQL_CONF} = require('../conf/db');
      const promise = new Promise((resolve, reject) => {
         con.query(sql, (err, result) => {
             if(err) {
-                reject(err);
+                reject(err); 
                 return;
             }
             resolve(result);
@@ -20,5 +20,6 @@ const {MYSQL_CONF} = require('../conf/db');
  }
 
  module.exports = {
-     exec
+     exec,
+     escape: mysql.escape
  }
